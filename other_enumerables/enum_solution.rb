@@ -22,7 +22,13 @@
     
     # Method
     def another_reject
-      #use another_each
+      array = []
+      self.another_each do |i|
+        unless yield i
+          array << i
+        end
+      end
+      array
     end
 
     # another_find
@@ -33,7 +39,14 @@
     
     # Method
     def another_find
-      #use another_each
+      answer = nil
+      self.another_each do |i|
+        if yield i
+          answer = i
+          break
+        end
+      end
+      answer
     end
 
     # another_map
@@ -44,7 +57,12 @@
     
     # Method
     def another_map
-      #use another_each
+      array = []
+      self.another_each do |i|
+        x = yield i
+        array << x
+      end
+      array
     end
 
   end
@@ -73,7 +91,7 @@
 
     # another_map test
     map_example_test_1 = [1,2,3,4].another_map { |x| x * x } == [1, 4, 9, 16]
-    map_example_test_2 = [1,2,3,4].another_map { |num| num + " cat" } == ["1 cat", "2 cat", "3 cat", "4 cat"]
+    map_example_test_2 = [1,2,3,4].another_map { |num| num.to_s + " cat" } == ["1 cat", "2 cat", "3 cat", "4 cat"]
 
     if map_example_test_1 && map_example_test_2
       puts "#another_map - Pass"
