@@ -43,7 +43,7 @@
       self.another_each do |i|
         if yield i
           answer = i
-          break
+          return answer
         end
       end
       answer
@@ -59,8 +59,7 @@
     def another_map
       array = []
       self.another_each do |i|
-        x = yield i
-        array << x
+        array << (yield i)
       end
       array
     end
